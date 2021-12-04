@@ -30,6 +30,19 @@
 .red {
   color: red;
 }
+.App {
+  background-color: orange;
+  padding: 10px 0;
+}
+.Son {
+  background-color: yellow;
+  padding: 10px 0;
+
+}
+.Grandson {
+  background-color: yellowgreen;
+  padding: 10px 0;
+}
 .parent {
   border: 1px solid red;
 }
