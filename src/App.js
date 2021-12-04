@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React from "react"
+let number = 0
+let addButton = () => {
+    number += 1
+}
+let minusButton = () => {
+    number -= 1
+}
+const App = () => {
+    return (
+        <div className="parent">
+            <span className="red">{number}</span>
+            <button onClick={addButton}>+</button>
+            <button onClick={minusButton}>-</button>
+        </div>
+    )
 }
 
-export default App;
+export default App
