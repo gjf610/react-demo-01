@@ -1,19 +1,35 @@
 import React from "react"
-let number = 0
-let addButton = () => {
-    number += 1
-}
-let minusButton = () => {
-    number -= 1
-}
-const App = () => {
-    return (
-        <div className="parent">
-            <span className="red">{number}</span>
-            <button onClick={addButton}>+</button>
-            <button onClick={minusButton}>-</button>
-        </div>
-    )
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            n: 1
+        }
+    }
+    onClick = () => {
+        this.setState(state => ({
+            n: state.n + 1
+        }))
+        this.setState(state => ({
+            n: state.n - 1
+        }))
+    }
+    shouldComponentUpdate(newProps, newState) {
+        return newState.n === this.state.n ? false : true
+    }
+    render() {
+        console.log('render 了一次')
+        return (
+            <div>hi
+                <div>
+                    {this.state.n}
+                    <button onClick={this.onClick}>+1</button>
+                </div>
+
+            </div>
+        )
+    }
+
 }
 
 export default App
