@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css'
 //import App from './App.js'
-
+import useUpdate from './useUpdate';
 
 function App() {
   return (
@@ -35,15 +35,42 @@ class Son extends React.Component {
     )
   }
 }
+
 const Grandson = () => {
-  const [n, setN] = React.useState(0)
+  const [n, setN] = useState(0)
+  useUpdate(() => {
+    console.log('变了')
+  }, n)
   return (
     <div className="Grandson">
-      孙子 n:{n}
+      n:{n}
       <button onClick={() => setN(n + 1)}>+</button>
     </div>
   )
 }
+
+// const App = propd => {
+//   const [childVisible, setChildVisible] = useState(true)
+//   return (
+//     <div>
+//       {childVisible ?
+//         <button onClick={() => setChildVisible(false)}>hide</button> :
+//         <button onClick={() => setChildVisible(true)}>show</button>}
+//       {childVisible ? <Child /> : null}
+//     </div>
+//   )
+// }
+// const Child = props => {
+//   useEffect(() => {
+//     console.log('render Child')
+//     return () => {
+//       console.log('Child hided')
+//     }
+//   })
+//   return (
+//     <div>child</div>
+//   )
+// }
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
