@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css'
 //import App from './App.js'
-import useUpdate from './useUpdate';
+//import useUpdate from './useUpdate';
+
+const render = () => {
+  ReactDOM.render(<App />, document.getElementById('root'));
+}
+let _state
+const myUseState = (initialValue) => {
+  _state = _state === undefined ? initialValue : _state
+  const setState = (newValue) => {
+    _state = newValue
+    render();
+  }
+  return [_state, setState]
+}
+
 
 function App() {
   return (
@@ -37,10 +51,11 @@ class Son extends React.Component {
 }
 
 const Grandson = () => {
-  const [n, setN] = useState(0)
-  useUpdate(() => {
-    console.log('变了')
-  }, n)
+  const [n, setN] = myUseState(0)
+  const [m, setM] = myUseState(0)
+  // useUpdate(() => {
+  //   console.log('变了')
+  // }, n)
   return (
     <div className="Grandson">
       n:{n}
