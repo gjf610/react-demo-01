@@ -5,16 +5,20 @@ import './App.css'
 //import useUpdate from './useUpdate';
 
 const render = () => {
+  index = 0
   ReactDOM.render(<App />, document.getElementById('root'));
 }
-let _state
+let _state = []
+let index = 0;
 const myUseState = (initialValue) => {
-  _state = _state === undefined ? initialValue : _state
+  const currentIndex = index
+  _state[currentIndex] = _state[currentIndex] === undefined ? initialValue : _state[currentIndex]
   const setState = (newValue) => {
-    _state = newValue
+    _state[currentIndex] = newValue
     render();
   }
-  return [_state, setState]
+  index += 1
+  return [_state[currentIndex], setState]
 }
 
 
@@ -60,6 +64,9 @@ const Grandson = () => {
     <div className="Grandson">
       n:{n}
       <button onClick={() => setN(n + 1)}>+</button>
+      <hr />
+      m:{m}
+      <button onClick={() => setM(m + 1)}>+</button>
     </div>
   )
 }
