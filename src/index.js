@@ -1,78 +1,43 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css'
-//import App from './App.js'
-import useUpdate from './useUpdate';
+import Context from './Context';
+import User from './component/user';
+import Books from './component/books';
+import Movies from './component/movies';
+import user_reducer from './reducers/user_reducer';
+import book_reducer from './reducers/book_reducer';
+import movies_reducer from './reducers/movies_reducer';
+const store = {
+  user: null,
+  books: null,
+  movies: null
+}
+const obj = {
+  ...user_reducer,
+  ...book_reducer,
+  ...movies_reducer
+}
+function reducer(state, action) {
+  const fn = obj[action.type]
+  if (fn) {
+    return fn(state, action)
+  } else {
+    throw new Error('Error');
+  }
+}
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, store)
   return (
-    <div className="App">
-      爸爸
-      <Son />
-    </div>
-  )
-}
-class Son extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      n: 0
-    }
-  }
-  add() {
-    this.setState({ n: this.state.n + 1 })
-  }
-  minus() {
-    this.setState({ n: this.state.n - 1 })
-  }
-  render() {
-    return (
-      <div className="Son">
-        儿子 n:{this.state.n}
-        <button onClick={() => this.add()}>+</button>
-        <Grandson />
-      </div>
-    )
-  }
-}
-
-const Grandson = () => {
-  const [n, setN] = useState(0)
-  useUpdate(() => {
-    console.log('变了')
-  }, n)
-  return (
-    <div className="Grandson">
-      n:{n}
-      <button onClick={() => setN(n + 1)}>+</button>
-    </div>
+    <Context.Provider value={{ state, dispatch }}>
+      <User />
+      <hr />
+      <Books />
+      <Movies />
+    </Context.Provider>
   )
 }
 
-// const App = propd => {
-//   const [childVisible, setChildVisible] = useState(true)
-//   return (
-//     <div>
-//       {childVisible ?
-//         <button onClick={() => setChildVisible(false)}>hide</button> :
-//         <button onClick={() => setChildVisible(true)}>show</button>}
-//       {childVisible ? <Child /> : null}
-//     </div>
-//   )
-// }
-// const Child = props => {
-//   useEffect(() => {
-//     console.log('render Child')
-//     return () => {
-//       console.log('Child hided')
-//     }
-//   })
-//   return (
-//     <div>child</div>
-//   )
-// }
 ReactDOM.render(<App />, document.getElementById('root'));
-
-
-
 
